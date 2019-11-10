@@ -1,14 +1,19 @@
 const canvasSketch = require('canvas-sketch');
-const { renderPaths, createPath, pathsToPolylines } = require('canvas-sketch-util/penplot');
+const { renderPaths, pathsToPolylines } = require('canvas-sketch-util/penplot');
 const { clipPolylinesToBox } = require('canvas-sketch-util/geometry');
 const Random = require('canvas-sketch-util/random');
-import * as dat from 'dat.gui';
-
-const gui = new dat.GUI();
+import { GUI } from 'dat.gui';
 
 Random.setSeed(Random.getRandomSeed());
 
-console.log('Random Seed:', Random.getSeed());
+const params = {
+  jDiv: 4.086875529212532,
+  linesCount: 200,
+  points: 100,
+  sinDiv: 4.5888738357324295,
+  sinValDiv: 1.3646232006773922,
+  iDiv: 6.3154953429297205,
+};
 
 const settings = {
   suffix: Random.getSeed(),
@@ -17,49 +22,23 @@ const settings = {
   pixelsPerInch: 300,
   scaleToView: true,
   units: 'cm',
-  params: {
-    jDiv: 25,
-    i: 10,
-    j: 250,
-    sinDiv: 10,
-    sinValDiv: 10,
-    iDiv: 4,
-  },
-  animate: true,
-  duration: 3,
+  params,
   fps: 1,
 };
 
-gui.add(settings.params, 'jDiv', 1, 50);
-gui.add(settings.params, 'i', 1, 500);
-gui.add(settings.params, 'j', 1, 500);
-gui.add(settings.params, 'sinDiv', 0.1, 20);
-gui.add(settings.params, 'sinValDiv', 0.1, 5);
-gui.add(settings.params, 'iDiv', 1, 20);
-gui.remember(settings.params);
-
 const sketch = (props) => {
   const { width, height, units, settings } = props;
-  const margin = 1; // in working 'units' based on settings
+  const margin = 1;
   const box = [margin, margin, width - margin, height - margin];
 
-  console.log(props);
-
   return (props) => {
-    console.log('return!');
-
-    const { jDiv } = settings.params;
+    const { iDiv, jDiv, sinDiv, sinValDiv, linesCount, points } = settings.params;
     const paths = [];
 
-    for (let i = 0; i < settings.params.i; i++) {
+    for (let i = 0; i < linesCount; i++) {
       const line = [];
-      for (let j = 0; j < settings.params.j; j++) {
-        line.push([
-          j / jDiv,
-          i / settings.params.iDiv +
-            Math.sin(j / settings.params.sinDiv + i / settings.params.sinDiv) /
-              settings.params.sinValDiv,
-        ]);
+      for (let j = 0; j < points; j++) {
+        line.push([j / jDiv, i / iDiv + Math.sin(j / sinDiv + i / sinDiv) / sinValDiv]);
       }
       paths.push(line);
     }
@@ -77,5 +56,23 @@ const sketch = (props) => {
   };
 };
 
-const s = canvasSketch(sketch, settings);
-s.then(console.log);
+(async () => {
+  const manager = await canvasSketch(sketch, settings);
+  const gui = new GUI();
+
+  add(gui, params, 'jDiv', 1, 50);
+  add(gui, params, 'linesCount', 1, 500);
+  add(gui, params, 'points', 1, 500);
+  add(gui, params, 'sinDiv', 0.1, 20);
+  add(gui, params, 'sinValDiv', 0.1, 5);
+  add(gui, params, 'iDiv', 1, 20);
+  gui.remember(params);
+
+  function add(gui, ...args) {
+    return gui.add(...args).onChange(render);
+  }
+
+  function render() {
+    manager.render();
+  }
+})();
