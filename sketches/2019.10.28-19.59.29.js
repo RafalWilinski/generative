@@ -13,6 +13,7 @@ const params = {
   sinDiv: 4.5888738357324295,
   sinValDiv: 1.3646232006773922,
   iDiv: 6.3154953429297205,
+  lineWidth: 0.01,
 };
 
 const settings = {
@@ -32,7 +33,7 @@ const sketch = (props) => {
   const box = [margin, margin, width - margin, height - margin];
 
   return (props) => {
-    const { iDiv, jDiv, sinDiv, sinValDiv, linesCount, points } = settings.params;
+    const { iDiv, jDiv, sinDiv, sinValDiv, linesCount, points, lineWidth } = settings.params;
     const paths = [];
 
     for (let i = 0; i < linesCount; i++) {
@@ -50,7 +51,7 @@ const sketch = (props) => {
       ...props,
       lineJoin: 'round',
       lineCap: 'round',
-      lineWidth: 0.01,
+      lineWidth,
       optimize: true,
     });
   };
@@ -66,6 +67,7 @@ const sketch = (props) => {
   add(gui, params, 'sinDiv', 0.1, 20);
   add(gui, params, 'sinValDiv', 0.1, 5);
   add(gui, params, 'iDiv', 1, 20);
+  add(gui, params, 'lineWidth', 0.001, 0.05);
   gui.remember(params);
 
   function add(gui, ...args) {
