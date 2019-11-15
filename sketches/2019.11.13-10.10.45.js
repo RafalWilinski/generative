@@ -12,7 +12,8 @@ const params = {
   angularChange: 2.1081287044877226,
   count: 90.14902624894158,
   lineWidth: 0.018956985605419138,
-  animate: false
+  animate: false,
+  animationSpeed: 5
 };
 
 const settings = {
@@ -82,6 +83,7 @@ let _gui;
   add(gui, params, "count", 1, 2500);
   add(gui, params, "lineWidth", 0.001, 0.05);
   add(gui, params, "animate");
+  add(gui, params, "animationSpeed", 0.1, 25);
 
   gui.remember(params);
 
@@ -97,7 +99,8 @@ let _gui;
     console.log("update");
     requestAnimationFrame(update);
     if (params.animate) {
-      params.angularChange = Math.abs(Math.cos(+new Date() / 100000)) * 10;
+      params.angularChange =
+        Math.abs(Math.cos(+new Date() / 100000)) * params.animationSpeed;
 
       // Iterate over all controllers
       for (var i in _gui.__controllers) {
