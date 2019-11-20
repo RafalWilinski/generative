@@ -7,8 +7,12 @@ import { GUI } from "dat.gui";
 Random.setSeed(Random.getRandomSeed());
 
 const params = {
-  noiseSize: 0.16764318374259105,
-  amplitude: 1,
+  noiseSize_1: 0.16764318374259105,
+  amplitude_1: 1,
+  noiseSize_2: 0.16764318374259105,
+  amplitude_2: 1,
+  noiseSize_3: 0.16764318374259105,
+  amplitude_3: 1,
   linesCount: 162.23488569009317,
   pointsCount: 43.25232853513971,
   lineSpacing: 0.2,
@@ -36,14 +40,18 @@ const drawLine = (
   x,
   paths,
   {
-    noiseSize,
+    noiseSize_1,
+    noiseSize_2,
+    noiseSize_3,
     pointsCount,
     pointsSpacing,
     lineSpacing,
     phase,
     startX,
     startY,
-    amplitude
+    amplitude_1,
+    amplitude_2,
+    amplitude_3
   }
 ) => {
   const line = [];
@@ -56,8 +64,20 @@ const drawLine = (
         Random.noise2D(
           i * pointsSpacing,
           x * lineSpacing + phase,
-          noiseSize,
-          amplitude
+          noiseSize_1,
+          amplitude_1
+        ) +
+        Random.noise2D(
+          i * pointsSpacing,
+          x * lineSpacing + phase,
+          noiseSize_2,
+          amplitude_2
+        ) +
+        Random.noise2D(
+          i * pointsSpacing,
+          x * lineSpacing + phase,
+          noiseSize_3,
+          amplitude_3
         )
     ]);
   }
@@ -97,8 +117,15 @@ let _gui;
   const gui = new GUI();
   _gui = gui;
 
-  add(gui, params, "noiseSize", 0.001, 0.5);
-  add(gui, params, "amplitude", 0.01, 5);
+  add(gui, params, "noiseSize_1", 0.001, 0.5);
+  add(gui, params, "amplitude_1", 0.01, 5);
+
+  add(gui, params, "noiseSize_2", 0.001, 0.5);
+  add(gui, params, "amplitude_2", 0.01, 5);
+
+  add(gui, params, "noiseSize_3", 0.001, 0.5);
+  add(gui, params, "amplitude_3", 0.01, 5);
+
   add(gui, params, "linesCount", 1, 500);
   add(gui, params, "pointsCount", 1, 500);
   add(gui, params, "lineSpacing", 0.001, 1);
