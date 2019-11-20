@@ -47,6 +47,13 @@ bit-twiddle@^1.0.0:
   resolved "https://registry.yarnpkg.com/bit-twiddle/-/bit-twiddle-1.0.2.tgz#0c6c1fabe2b23d17173d9a61b7b7093eb9e1769e"
   integrity sha1-DGwfq+KyPRcXPZpht7cJPrnhdp4=
 
+camera-project@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/camera-project/-/camera-project-1.0.2.tgz#d1d696c5aa164cee92e21bb922aba52b6c0a25de"
+  integrity sha1-0daWxaoWTO6S4hu5IqulK2wKJd4=
+  dependencies:
+    gl-vec4 "^1.0.1"
+
 canvas-sketch-util@^1.10.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/canvas-sketch-util/-/canvas-sketch-util-1.10.0.tgz#93d11aa378f8991ed0837d1bf8ea738132f41f1e"
@@ -182,6 +189,21 @@ get-canvas-context@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/get-canvas-context/-/get-canvas-context-1.0.2.tgz#d6e7b50bc4e4c86357cd39f22647a84b73601e93"
   integrity sha1-1ue1C8TkyGNXzTnyJkeoS3NgHpM=
+
+gl-mat4@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/gl-mat4/-/gl-mat4-1.2.0.tgz#49d8a7636b70aa00819216635f4a3fd3f4669b26"
+  integrity sha512-sT5C0pwB1/e9G9AvAoLsoaJtbMGjfd/jfxo8jMCKqYYEnjZuFvqV5rehqar0538EmssjdDeiEWnKyBSTw7quoA==
+
+gl-vec3@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/gl-vec3/-/gl-vec3-1.1.3.tgz#a47c62f918774a06cbed1b65bcd0288ecbb03826"
+  integrity sha512-jduKUqT0SGH02l8Yl+mV1yVsDfYgQAJyXGxkJQGyxPLHRiW25DwVIRPt6uvhrEMHftJfqhqKthRcyZqNEl9Xdw==
+
+gl-vec4@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/gl-vec4/-/gl-vec4-1.0.1.tgz#97d96878281b14b532cbce101785dfd1cb340964"
+  integrity sha1-l9loeCgbFLUyy84QF4Xf0cs0CWQ=
 
 has@^1.0.1:
   version "1.0.3"
